@@ -1,0 +1,77 @@
+# To read data with missing values:
+    df = pd.read_csv('location', index_col = 0, na_values = ['-'])  # If value is in this symbol, then it will display as NaN
+
+# Creating data frames: Dictionaries are best to create data frames
+name = {'weight' : [45,52,65,74]
+         'height' : [5,5.3,5.7,6]
+         }
+# and then we can pass it to pandas:
+data_frame = pd.DataFrame(name)
+
+# To add index to data frames:
+data_frame = pd.DataFrame(name, index = ['a', 'b', 'c', 'd'] )
+
+# To locate the order using loc function:
+data_frame.loc['weight']
+# To locate by numeric index use:
+df_iloc[1]
+
+# To look up first few rows:
+data_frame.head(n)    n = no.of rows to display. By default it is 5
+data_frame.tail(n)    To look up lat few rows in data
+
+# To get basic structure of data: (Like no.of rows, columns, type of data in each column, no.of missing vales etc.,)
+data_frame.info()
+
+# To rename columns use .rename() and use dict to change name:
+df.rename(columns { 'old_name': 'new_name'} )
+# To do any changes in data frame on line, use (inplace = True)
+
+# To compute mean, std, quartiles, min, max:
+df.describe()     # Only for numerical
+# To display categorical also use .describe(include = "all"). It will display NaN
+
+# To get count of each value in column:
+df.value_counts()
+
+# To get type of each column use type()
+# To change the type:
+    df['weight'] = df['weight'].astype(float)
+
+# To if assign each column to other variable. It will store as series. To get it in series use "double square brackets"
+a = df[['weight']]
+
+# To add new column:
+    df['new_name'] = new_column
+    
+# To drop columns:
+    df.drop(columns = ['income'])
+
+# To apply function to data use, ".apply":
+    def order():
+      if weight < 55:
+        return "Under_weight"
+       else: return "normal"
+       
+      a = df['weight'].apply(order) 
+      
+# MIN - MAX Normalization:
+    df_norm = ( df['income'] - df['income'].min() ) / ( df['income'].max() - df['income'].min() )
+      
+# Z-score Normalization:
+    df_norm = ( df['income'] - df['income'].mean() ) / ( df['income'].std() )
+    
+# To discretize variables into equal size bins: (Use "qcut()" function)
+    discrete = pd.qcut(df.income,3)  # into 3 equal bins
+# and we can assign labels to it
+    discrete = pd.qcut(df.income, [0, .33, .66, 1], labels = ['low', 'medium', 'high'])
+    
+# To group categorical attributes in column:
+    df.groupby('category')
+    
+# To create dummies and convert to standard spreadsheets:
+    df_dummy = pd.get_dummies(df)
+    
+
+
+    
